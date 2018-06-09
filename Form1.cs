@@ -19,12 +19,9 @@ namespace ScreenCaptureDemo
 
         private void buttonCapture_Click(object sender, EventArgs e)
         {
-           // this.Visible = false;
-            this.Hide();
-            
-            CaptureMyScreen();
-         ////   this.Visible = true;
-            this.Show();
+           this.Hide();
+           CaptureMyScreen();
+           this.Show();
         }
 
         private void CaptureMyScreen()
@@ -32,38 +29,23 @@ namespace ScreenCaptureDemo
             try
             {
                 System.Threading.Thread.Sleep(500);
-                //Creating a new Bitmap object
                 Bitmap captureBitmap = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
-
-                //Creating a Rectangle object which will capture our Current Screen
-                  Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
-
-                //Creating a New Graphics Object
-                  Graphics captureGraphics = Graphics.FromImage(captureBitmap);
-
-            //Copying Image from The Screen
-           
-                  captureGraphics.CopyFromScreen(captureRectangle.Left,captureRectangle.Top,0,0,captureRectangle.Size);
-           
-                //Saving the Image File (I am here Saving it in My E drive).
-                string path = textBox1.Text;
+				Rectangle captureRectangle = Screen.AllScreens[0].Bounds;
+				Graphics captureGraphics = Graphics.FromImage(captureBitmap);
+				captureGraphics.CopyFromScreen(captureRectangle.Left,captureRectangle.Top,0,0,captureRectangle.Size);
+				string path = textBox1.Text;
                 string filename=null;
-            if (path.Last().ToString() != @"\")
+				if (path.Last().ToString() != @"\")
                 {
                 path = path + @"\";
-            }
+				}
                 if (!(textBox2.Text == ""))
                 {
                     filename = textBox2.Text + ".jpg";
                 }
                 else { filename =  System.Guid.NewGuid().ToString()+".jpg"; }
                 captureBitmap.Save(path+filename,ImageFormat.Jpeg);
-
-                //Displaying the Successfull Result
-
-                //  MessageBox.Show("Screen Captured");
-               
-            }
+			}
 
             catch (Exception ex)
             {
@@ -72,25 +54,10 @@ namespace ScreenCaptureDemo
            
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Show();
             this.WindowState = FormWindowState.Normal;
-        }
-
-        private void Capture_Click(object sender, EventArgs e)
-        {
-         
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void textBox2_Enter(object sender, EventArgs e)
@@ -101,7 +68,7 @@ namespace ScreenCaptureDemo
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-   Application.Exit();
+			Application.Exit();
         }
 
         private void Form1_MinimumSizeChanged(object sender, EventArgs e)
